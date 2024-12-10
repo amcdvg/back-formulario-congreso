@@ -32,14 +32,27 @@ const RespuestaSchema = new mongoose.Schema({
 const Respuesta = mongoose.model('Respuesta', RespuestaSchema);
 
 // Ruta para agregar una respuesta
-app.post('/respuesta', async (req, res) => {
+/*app.post('/respuesta', async (req, res) => {
   const { questionIndex, response } = req.body;
 
   const nuevaRespuesta = new Respuesta({ questionIndex, response });
   await nuevaRespuesta.save();
 
   res.status(201).send({ message: 'Respuesta guardada' });
-});
+});*/
+app.post('/respuesta', async (req, res) => {
+    const { empresa, questionIndex, question, response } = req.body;
+  
+    // Validar los datos recibidos
+    if (!empresa || questionIndex === undefined || !question || !response) {
+      return res.status(400).send({ message: 'Todos los campos son obligatorios' });
+    }
+  
+    const nuevaRespuesta = new Respuesta({ empresa, questionIndex, question, response });
+    await nuevaRespuesta.save();
+  
+    res.status(201).send({ message: 'Respuesta guardada correctamente' });
+  });
 
 // Ruta para obtener respuestas agrupadas por pregunta
 app.get('/respuestas', async (req, res) => {
