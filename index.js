@@ -17,10 +17,17 @@ mongoose.connect('mongodb+srv://alexmorenoc3:cfpTQGHFH91rhPdH@cluster0.ho5zg.mon
   useUnifiedTopology: true,
 });
 
-const RespuestaSchema = new mongoose.Schema({
+/*const RespuestaSchema = new mongoose.Schema({
   questionIndex: Number,
   response: String,
-});
+});*/
+const RespuestaSchema = new mongoose.Schema({
+    empresa: String, // Nuevo campo para almacenar el nombre de la empresa
+    questionIndex: Number,
+    question: String, // Guardar la pregunta también puede ser útil
+    response: String,
+  });
+  
 
 const Respuesta = mongoose.model('Respuesta', RespuestaSchema);
 
